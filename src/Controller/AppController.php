@@ -39,6 +39,8 @@ class AppController extends Controller {
      *
      * @return void
      */
+    var $layout = 'CakeLte.top-nav';
+    
     public function initialize(): void {
         parent::initialize();
 

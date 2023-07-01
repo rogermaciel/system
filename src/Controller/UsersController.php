@@ -108,6 +108,7 @@ class UsersController extends AppController {
         parent::beforeFilter($event);
         // for all controllers in our application, make index and view
         // actions public, skipping the authentication check
+        $this->layout = 'CakeLte.login';
         $this->Authentication->addUnauthenticatedActions(['login', 'add']);
     }
 
