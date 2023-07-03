@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Model\Entity;
@@ -16,8 +15,8 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Article[] $articles
  */
-class Tag extends Entity {
-
+class Tag extends Entity
+{
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *

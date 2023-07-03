@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -30,15 +29,16 @@ use Cake\Validation\Validator;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class TagsTable extends Table {
-
+class TagsTable extends Table
+{
     /**
      * Initialize method
      *
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config): void {
+    public function initialize(array $config): void
+    {
         parent::initialize($config);
 
         $this->setTable('tags');
@@ -60,12 +60,13 @@ class TagsTable extends Table {
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator): Validator {
+    public function validationDefault(Validator $validator): Validator
+    {
         $validator
-                ->scalar('title')
-                ->maxLength('title', 191)
-                ->allowEmptyString('title')
-                ->add('title', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->scalar('title')
+            ->maxLength('title', 191)
+            ->allowEmptyString('title')
+            ->add('title', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         return $validator;
     }
@@ -77,7 +78,8 @@ class TagsTable extends Table {
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules): RulesChecker {
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
         $rules->add($rules->isUnique(['title'], ['allowMultipleNulls' => true]), ['errorField' => 'title']);
 
         return $rules;

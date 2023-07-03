@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -29,15 +28,16 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\ArticlesTag[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \App\Model\Entity\ArticlesTag[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  */
-class ArticlesTagsTable extends Table {
-
+class ArticlesTagsTable extends Table
+{
     /**
      * Initialize method
      *
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config): void {
+    public function initialize(array $config): void
+    {
         parent::initialize($config);
 
         $this->setTable('articles_tags');
@@ -61,7 +61,8 @@ class ArticlesTagsTable extends Table {
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules): RulesChecker {
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
         $rules->add($rules->existsIn('article_id', 'Articles'), ['errorField' => 'article_id']);
         $rules->add($rules->existsIn('tag_id', 'Tags'), ['errorField' => 'tag_id']);
 

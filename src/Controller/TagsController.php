@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -10,14 +9,15 @@ namespace App\Controller;
  * @property \App\Model\Table\TagsTable $Tags
  * @method \App\Model\Entity\Tag[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class TagsController extends AppController {
-
+class TagsController extends AppController
+{
     /**
      * Index method
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index() {
+    public function index()
+    {
         $this->Authorization->skipAuthorization();
         $tags = $this->paginate($this->Tags);
 
@@ -31,7 +31,8 @@ class TagsController extends AppController {
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null) {
+    public function view($id = null)
+    {
         $this->Authorization->skipAuthorization();
         $tag = $this->Tags->get($id, [
             'contain' => ['Articles'],
@@ -45,9 +46,10 @@ class TagsController extends AppController {
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add() {
-        $tag = $this->Tags->newEmptyEntity();
+    public function add()
+    {
         $this->Authorization->skipAuthorization();
+        $tag = $this->Tags->newEmptyEntity();
         if ($this->request->is('post')) {
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());
             if ($this->Tags->save($tag)) {
@@ -68,11 +70,12 @@ class TagsController extends AppController {
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null) {
+    public function edit($id = null)
+    {
+        $this->Authorization->skipAuthorization();
         $tag = $this->Tags->get($id, [
             'contain' => ['Articles'],
         ]);
-        $this->Authorization->skipAuthorization();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());
             if ($this->Tags->save($tag)) {
@@ -93,7 +96,8 @@ class TagsController extends AppController {
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null) {
+    public function delete($id = null)
+    {
         $this->Authorization->skipAuthorization();
         $this->request->allowMethod(['post', 'delete']);
         $tag = $this->Tags->get($id);

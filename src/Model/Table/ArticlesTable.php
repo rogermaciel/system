@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -31,15 +30,16 @@ use Cake\Validation\Validator;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class ArticlesTable extends Table {
-
+class ArticlesTable extends Table
+{
     /**
      * Initialize method
      *
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config): void {
+    public function initialize(array $config): void
+    {
         parent::initialize($config);
 
         $this->setTable('articles');
@@ -65,31 +65,32 @@ class ArticlesTable extends Table {
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator): Validator {
+    public function validationDefault(Validator $validator): Validator
+    {
         $validator
-                ->integer('user_id')
-                ->notEmptyString('user_id');
+            ->integer('user_id')
+            ->notEmptyString('user_id');
 
         $validator
-                ->scalar('title')
-                ->maxLength('title', 255)
-                ->requirePresence('title', 'create')
-                ->notEmptyString('title');
+            ->scalar('title')
+            ->maxLength('title', 255)
+            ->requirePresence('title', 'create')
+            ->notEmptyString('title');
 
         $validator
-                ->scalar('slug')
-                ->maxLength('slug', 191)
-                ->requirePresence('slug', 'create')
-                ->notEmptyString('slug')
-                ->add('slug', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->scalar('slug')
+            ->maxLength('slug', 191)
+            ->requirePresence('slug', 'create')
+            ->notEmptyString('slug')
+            ->add('slug', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-                ->scalar('body')
-                ->allowEmptyString('body');
+            ->scalar('body')
+            ->allowEmptyString('body');
 
         $validator
-                ->boolean('published')
-                ->allowEmptyString('published');
+            ->boolean('published')
+            ->allowEmptyString('published');
 
         return $validator;
     }
@@ -101,7 +102,8 @@ class ArticlesTable extends Table {
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules): RulesChecker {
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
         $rules->add($rules->isUnique(['slug']), ['errorField' => 'slug']);
         $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
 

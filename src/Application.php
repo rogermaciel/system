@@ -78,6 +78,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $this->addPlugin('Authorization');
         // Load more plugins here
         $this->addPlugin('CakeLte');
+        $this->addPlugin('CakePdf');
     }
 
     /**
@@ -118,7 +119,15 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
                 // Add the AuthenticationMiddleware. It should be after routing and body parser.
                 ->add(new AuthenticationMiddleware($this))
-                ->add(new AuthorizationMiddleware($this));
+                ->add(new AuthorizationMiddleware($this, [
+                            'unauthorizedHandler' => [
+                                'className' => 'Authorization.Redirect',
+                                'url' => '/pages/home',
+                                'exceptions' => [
+                                    'MissingIdentityException' => 'Authorization\Exception\MissingIdentityException',
+                                    'ForbiddenException' => 'Authorization\Exception\ForbiddenException',
+                        ]]]));
+        
         return $middlewareQueue;
     }
 

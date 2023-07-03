@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Routes configuration.
  *
@@ -20,7 +21,6 @@
  * @link          https://cakephp.org CakePHP(tm) Project
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 
@@ -88,4 +88,9 @@ return static function (RouteBuilder $routes) {
      * });
      * ```
      */
+
+    $routes->scope('/', function (\Cake\Routing\RouteBuilder $routes) {
+        $routes->setExtensions(['pdf']);
+        // ...
+    });
 };

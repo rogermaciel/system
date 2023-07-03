@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use CakePdf\Pdf\CakePdf;
+
 /**
  * Articles Controller
  *
@@ -22,7 +24,6 @@ class ArticlesController extends AppController {
         $this->paginate = [
             'contain' => ['Users'],
         ];
-        
         $articles = $this->paginate($this->Articles);
 
         $this->set(compact('articles'));
@@ -50,10 +51,8 @@ class ArticlesController extends AppController {
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add() {
-        $article = $this->Articles->newEmptyEntity();
         $this->Authorization->skipAuthorization();
-        $this->Authorization->authorize($article);
-        
+        $article = $this->Articles->newEmptyEntity();
         if ($this->request->is('post')) {
             $article = $this->Articles->patchEntity($article, $this->request->getData());
             if ($this->Articles->save($article)) {
@@ -81,7 +80,6 @@ class ArticlesController extends AppController {
             'contain' => ['Tags'],
         ]);
         $this->Authorization->authorize($article);
-        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $article = $this->Articles->patchEntity($article, $this->request->getData());
             if ($this->Articles->save($article)) {
@@ -107,8 +105,6 @@ class ArticlesController extends AppController {
         $this->Authorization->skipAuthorization();
         $this->request->allowMethod(['post', 'delete']);
         $article = $this->Articles->get($id);
-        $this->Authorization->authorize($article);
-        
         if ($this->Articles->delete($article)) {
             $this->Flash->success(__('The article has been deleted.'));
         } else {
@@ -116,5 +112,22 @@ class ArticlesController extends AppController {
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function pdf($id = null) {
+        $this->Authorization->skipAuthorization();
+        $this->viewBuilder()->enableAutoLayout(false);
+        $report = $this->Articles->get($id);
+        $this->viewBuilder()->setClassName('CakePdf.Pdf');
+        $this->viewBuilder()->setOption(
+                'pdfConfig',
+                [
+                    'orientation' => 'landscape',
+                    'download' => false, // This can be omitted if "filename" is specified.
+                    'filename' => 'Report_' . $id . '.pdf' //// This can be omitted if you want file name based on URL.
+                ]
+        );
+
+        $this->set('report', $report, 'title', 'body');
     }
 }

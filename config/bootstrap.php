@@ -221,3 +221,16 @@ TypeFactory::map('time', StringType::class);
 //Inflector::rules('plural', ['/^(inflect)or$/i' => '\1ables']);
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
+
+
+Configure::write('CakePdf', [
+    'engine' => 'CakePdf.WkHtmlToPdf',
+    'margin' => [
+        'bottom' => 10,
+        'left' => 10,
+        'right' => 10,
+        'top' => 10
+    ],
+    'orientation' => 'landscape',
+    'download' => true
+]);

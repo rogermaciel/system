@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -10,15 +9,15 @@ namespace App\Controller;
  * @property \App\Model\Table\ArticlesTagsTable $ArticlesTags
  * @method \App\Model\Entity\ArticlesTag[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class ArticlesTagsController extends AppController {
-
+class ArticlesTagsController extends AppController
+{
     /**
      * Index method
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index() {
-        $this->Authorization->skipAuthorization();
+    public function index()
+    {
         $this->paginate = [
             'contain' => ['Articles', 'Tags'],
         ];
@@ -34,8 +33,8 @@ class ArticlesTagsController extends AppController {
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null) {
-        $this->Authorization->skipAuthorization();
+    public function view($id = null)
+    {
         $articlesTag = $this->ArticlesTags->get($id, [
             'contain' => ['Articles', 'Tags'],
         ]);
@@ -48,9 +47,9 @@ class ArticlesTagsController extends AppController {
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add() {
+    public function add()
+    {
         $articlesTag = $this->ArticlesTags->newEmptyEntity();
-        $this->Authorization->skipAuthorization();
         if ($this->request->is('post')) {
             $articlesTag = $this->ArticlesTags->patchEntity($articlesTag, $this->request->getData());
             if ($this->ArticlesTags->save($articlesTag)) {
@@ -72,11 +71,11 @@ class ArticlesTagsController extends AppController {
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null) {
+    public function edit($id = null)
+    {
         $articlesTag = $this->ArticlesTags->get($id, [
             'contain' => [],
         ]);
-        $this->Authorization->skipAuthorization();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $articlesTag = $this->ArticlesTags->patchEntity($articlesTag, $this->request->getData());
             if ($this->ArticlesTags->save($articlesTag)) {
@@ -98,8 +97,8 @@ class ArticlesTagsController extends AppController {
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null) {
-        $this->Authorization->skipAuthorization();
+    public function delete($id = null)
+    {
         $this->request->allowMethod(['post', 'delete']);
         $articlesTag = $this->ArticlesTags->get($id);
         if ($this->ArticlesTags->delete($articlesTag)) {
